@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>seat-selections</title>
+    <style>
+      .outlet {
+        height: 500px;
+        width: 600px;
+        background-color: rgb(166, 213, 151);
+        border: 1px solid black;
+        position: absolute;
+      }
+      .seats-box-A {
+        width: 300px;
+        height: 400px;
+        border: 1px solid rgb(213, 9, 9);
+        margin: 30px 0px 0px 70px;
+        /* display: flex; */
+        position: absolute;
+        /* flex-flow: row; */
+        /* row-gap: 10px; */
+      }
+     /* .seats {
+        display: inline-block;
+        position: relative;
+      } */
+      .seat-btn {
+        padding:1pxc;
+        width: 30px;
+        height: 15px;
+        border-radius: 2px;
+        font-size: 0.3rem;
+        color: rgb(179, 115, 115);
+        font-weight: bold;
+        cursor: pointer;
+        /* border-left: 1px solid black; */
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="outlet">
+              <div class="seats-box-A">
+              upper deck
+        <table>
+          <tr>
+            <td rowspan="1" colspan="2">
+              <div class="seats">
+                <button class="seat-btn">7A
+                  
+                </button>
+              </div>
+            </td>
+            <td rowspan="1" colspan="2">
+              <div class="seats" style="border:1px solid red;">
+                <button class="seat-btn">6A</button>
+              </div>
+            </td>
+            <td rowspan="1" colspan="2">
+              <div class="seats">
+                <button class="seat-btn">4A</button>
+              </div>
+            </td>
+            <td rowspan="1" colspan="2">
+              <div class="seats">
+                <button class="seat-btn">3A</button>
+              </div>
+            </td>
+            <td rowspan="1" colspan="2">
+              <div class="seats">
+                <button class="seat-btn">2A</button>
+              </div>
+            </td>
+            <td rowspan="1" colspan="2">
+              <div class="seats">
+                <button class="seat-btn">1A</button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="2">
+              <div class="seats">
+                <button class="seat-btn">11B</button>
+              </div>
+            </td>
+            <td rowspan="1" colspan="2">
+              <div class="seats">
+                <button class="seat-btn">11B</button>
+              </div>
+            </td>
+            <td rowspan="1" colspan="2">
+              <div class="seats">
+                <button class="seat-btn">11B</button>
+              </div>
+            </td>
+            <td rowspan="1" colspan="2">
+              <div class="seats">
+                <button class="seat-btn">11B</button>
+              </div>
+            </td>
+            <td rowspan="1" colspan="2">
+              <div class="seats">
+                <button class="seat-btn">11B</button>
+              </div>
+            </td>
+            <td rowspan="1" colspan="2">
+              <div class="seats">
+                <button class="seat-btn">11B</button>
+              </div>
+            </td>
+          </tr>
+          <tr style="visibility: hidden">
+            <td></td>
+            <td></td>
+            <td>jhg</td>
+            <td></td>
+            <td><df/td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="2">
+              <div class="seats">
+                <button class="seat-btn">11C</button>
+              </div>
+            </td>
+            <td rowspan="1" colspan="2">
+              <div class="seats">
+                <button class="seat-btn">22C</button>
+              </div>
+            </td>
+            <td rowspan="1" colspan="2">
+              <div class="seats">
+                <button class="seat-btn">23C</button>
+              </div>
+            </td>
+            <td rowspan="1" colspan="2">
+              <div class="seats">
+                
+                <button class="seat-btn">32C</button>
+              </div>
+            </td>
+            <td rowspan="1" colspan="2">
+              <div class="seats">
+                <button class="seat-btn">22C</button>
+              </div>
+            </td>
+            <td rowspan="1" colspan="2">
+              <div class="seats">
+                <button class="seat-btn">12C</button>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <p>Lower deck</p>
+          <table>
+            <tr>
+              <td rowspan="1" colspan="2">
+              <div class="seats">
+                <button class="seat-btn">13D</button>
+              </div>
+            </td>
+            <td rowspan="1" colspan="2">
+              <div class="seats" id="seats">
+                <button class="seat-btn" id="seat-btn">14D</button>
+              </div>
+            </td>
+            <td rowspan="1" colspan="2">
+              <div class="seats">
+                <button class="seat-btn" style="border: 1px solid red;">15D</button>
+              </div>
+            </td>
+               <td rowspan="1" colspan="2">
+                <div class="seats">
+                  <button class="seat-btn">16D</button>
+                </div>
+              </td>
+              <td rowspan="1" colspan="2">
+                <div class="seats">
+                  
+                  <button class="seat-btn">17D</button>
+                </div>
+              </td>
+              <td rowspan="1" colspan="2">
+                <div class="seats">
+                  <button class="seat-btn">18D</button>
+                </div>
+              </td>
+
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="2">
+              <div style="">
+              <img src="../icons/seat--com.svg">
+              </div>
+            </td>
+            <td>
+              <div style="display: none; cursor: pointer;">
+                <!-- <img src="../icons/seat--com.svg" style="cursor: pointer;"> -->
+                 <span></span>
+              </div>
+             
+            </td>
+            <td>
+              <div >
+                <img src="../icons/seat--com.svg">
+              </div>
+             
+            </td>
+            <td>
+              <div>
+                <img src="../icons/seat--com.svg">
+              </div>
+             
+            </td>
+            <td>
+              <div style="display: none;">
+              <button></button>
+              </div>
+             
+            </td>
+            <td>
+              <div>
+                <img src="../icons/seat--com.svg">
+              </div>
+             
+            </td>
+            <td>
+              <div style="">
+            <img src="../icons/chairs-seat-svgrepo-com.svg">
+
+              </div>
+             
+            </td>
+            <td>
+              <div>
+                <img src="../icons/seat--com.svg">
+              </div>
+             
+            </td>
+            <td>
+              <div>
+                <img src="../icons/seat--com.svg">
+              </div>
+             
+            </td>
+            <td>
+              <div >
+                <img src="../icons/seat--com.svg">
+              </div>
+             
+            </td>
+            <td>
+              <div style="display: none;">
+                <img src="../icons/seat--com.svg">
+              </div>
+             
+            </td>
+           
+          </tr>
+        </table>
+      </div>
+      <button id="ticket-select">Book ticket</button>
+    
+
+    </div>
+    <div id="ticket-booking" style="border: 1px solid black; height: 300px; width: 200px; position: relative;  margin: 10px 0px 0px  400px; display: none;">
+     
+      
+    </div>
+    
+    <!-- <script src="select-seats.js"></script> -->
+
+    <!-- <script>
+        let selectTicket = document.getElementById("ticket-select");
+        selectTicket.addEventListener('click', () => {
+            window.location.href = "../passengerticket/passengerdetails.html";
+        });
+    </script> -->
+    <!-- <script src="../passengers/passengerdetails.html"></script> -->
+
+    
+</body>
+
+    </script>
+  </body>
+</html>

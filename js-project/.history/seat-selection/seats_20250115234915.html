@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seat Selection</title>
+    <!--css only-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+
+<link rel="stylesheet" href="seats.css">
+</head>
+<style> 
+         /* For mobile devices (max width 425px) */
+/* General Styles */
+nav {
+    background-color: crimson;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+nav ul li a {
+    color: white;
+}
+
+.seats {
+    height: 30px;
+    width: 55px;
+    border: 1px solid black;
+    font-size: .923rem;
+    border-radius: 4px;
+    position: relative;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    left: 20px;
+    margin-left: 10px;
+    background-color: lightblue;
+    color: lightgreen;
+    cursor: pointer;
+}
+
+.inside-div {
+    height: 20px;
+    width: 5px;
+    border: 1px solid rgb(106, 85, 85);
+    border-radius: 3px;
+    position: absolute; 
+    right: 4px;
+    top: 3.6px;
+}
+
+.steering {
+    height: 35px;
+    border: 1px solid black;
+    width: 35px;
+}
+
+.seats-back {
+    height: 30px;
+    width: 55px;
+    border: 1px solid black;
+    font-size: .980rem;
+    border-radius: 4px;
+    position: relative; 
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    left: 20px;
+    margin-left: 10px;
+    background-color: lightblue;
+    rotate: 90deg;
+    color: lightgreen;
+    cursor: pointer;
+}
+
+.inside-div-back {
+    height: 20px;
+    width: 5px;
+    border: 1px solid rgb(106, 85, 85);
+    border-radius: 3px;
+    position: absolute; 
+    right: 2px;
+}
+
+input::placeholder {
+    color: blueviolet;
+}
+
+.outdiv1 {
+    height: 20px;
+    width: 17px;
+    border: 2px solid rgb(215, 175, 175);
+    border-radius: 2px ;
+    margin-right: 10px;
+    margin-top: 20px;
+    font-size: 0.455rem;
+    cursor: pointer;
+}
+
+.indiv {
+    border: 2px solid rgb(172, 167, 167);
+    height: 13px;
+    width: 10px;
+    margin-top: 0.7px;
+    margin-left: 2.6px;
+    margin-bottom: 1.6px;
+    border-left: hidden;
+    cursor: pointer;
+}
+
+[title] {
+    background-color: lightcyan;
+}
+
+#confirm-Booking {
+    width: 30.9vw;
+    height: 5vh;
+    border: 0.99px solid rgb(179, 96, 96);
+    background-color: rgb(155, 65, 65);
+    color: white;
+    margin-left: 31.9%;
+    display: none;
+    margin-top: 20px;
+}
+
+#gender {
+    border-radius: 3px;
+    text-align: center;
+}
+
+/* Media Queries for responsiveness */
+
+/* Mobile (up to 425px) */
+@media (max-width: 425px) {
+    nav {
+        flex-direction: column; /* Stack the nav items */
+        text-align: center;
+    }
+
+    .seats, .seats-back {
+        width: 45px; /* Smaller seat size on mobile */
+        font-size: .8rem;
+    }
+
+    .steering {
+        width: 30px;
+        height: 30px;
+    }
+
+    #confirm-Booking {
+        width: 80%;
+        margin-left: 10%;
+    }
+
+    .outdiv1 {
+        height: 16px;
+        width: 15px;
+        font-size: 0.4rem;
+    }
+
+    .indiv {
+        height: 11px;
+        width: 8px;
+        font-size: 0.3rem;
+    }
+}
+
+/* Tablet (up to 768px) */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column; /* Stack the nav items */
+        text-align: center;
+    }
+
+    .seats, .seats-back {
+        width: 50px; /* Adjust for tablet view */
+        font-size: .9rem;
+    }
+
+    .steering {
+        width: 32px;
+        height: 32px;
+    }
+
+    #confirm-Booking {
+        width: 60%;
+        margin-left: 20%;
+    }
+
+    .outdiv1 {
+        height: 18px;
+        width: 16px;
+        font-size: 0.45rem;
+    }
+
+    .indiv {
+        height: 12px;
+        width: 9px;
+    }
+}
+
+/* Desktop (min-width: 1024px) */
+@media (min-width: 1024px) {
+    nav {
+        flex-direction: row-reverse; /* Keep the original layout */
+    }
+
+    .seats, .seats-back {
+        width: 55px; /* Larger seat size for desktop */
+        font-size: .923rem;
+    }
+
+    .steering {
+        width: 35px;
+        height: 35px;
+    }
+
+    #confirm-Booking {
+        width: 30.9vw;
+        margin-left: 31.9%;
+    }
+
+    .outdiv1 {
+        height: 20px;
+        width: 17px;
+        font-size: 0.455rem;
+    }
+
+    .indiv {
+        height: 13px;
+        width: 10px;
+    }
+}
+
+</style>
+<body>
+
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a href="./Pages/landingPage.html"><img src="https://s3.rdbuz.com/web/images/home/sgp/r_logo.png" alt=""></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarScroll">
+            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="../bus-details/index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Link
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled">buses</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link login" href="../signup/login.html">LOGIN</a>
+
+              </li>
+            </ul>
+            
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+   <!-- <button style=" border: 1px solid black;width: 25px; " onclick="ticketincrement()" id="ticket-increment">+</button><br> -->
+    <div class="genderbox">
+    <for>Enter your Gender:</for>
+    <input type="text" id="gender" placeholder="enter your Gender.."> 
+     <input type="submit" id="submit">
+    
+    </div>
+     <p id="seatCount">Selected Seats: </p>
+
+   <div class="index-div">
+
+   </div>
+   <div></div>
+
+   <!--   table seats display                                         -->
+
+
+   <!-- <div style="margin-top: 30px;"></div> -->
+   <!-- <span style="color: cadetblue; margin-top: 30px;">Upper deck</span> -->
+    <div  class="Index-block" >
+    <i style="font-family: var(--bs-scroll-height); color: white;">My</i><br>
+    <!-- <for>Enter your Gender:</for> -->
+    <!-- <input type="text" id="gender" placeholder="enter your Gender.." disabled> -->
+     <!-- <input type="submit" id="submit"> -->
+
+      <h6 style="color: white; text-decoration: underline">seats-info</h6>
+      <div class="index-female">
+        <td>
+            <div class="seats"id="seats1" title="s-no : A3" style="height: 20px; width: 35px; font-size: 0.674rem; border: 1px solid red; margin-top: 5px;">
+                <div class="inside-div" style="height: 13px; width: 5px;"></div>
+            
+            </div>
+            <ul>
+            <li style="margin-left: 20px;">female</li>
+            </ul>
+            <td>
+                <div class="seats"id="seats1" title="s-no : A3" style="height: 20px; width: 35px; font-size: 0.674rem; border: 1px solid white; margin-top: 5px; background-color: lightgray;">
+                    <div class="inside-div" style="height: 13px; width: 5px;"></div>
+                 
+                </div>
+                <ul>
+                <li style="margin-left: 20px;">Male</li>
+                </ul>
+            
+        </td>
+<div>
+    <ul>
+        <li>dont spli on buses </li>
+        <li><strong>
+            dont scoled with passenger it will disturbs  forward passengers 
+        </strong></li>
+    </ul>
+</div>
+        
+      </div>
+   
+    
+   <div class="index-div">
+
+   </div>
+    </div>
+    <div  class="upper-seats" id="upperseats">
+        <table style="margin-top: 10px;">
+            <tr>
+                <td><img src="../icons/steering-wheel.svg"></td>
+                <td>
+                    <div class="seats"id="seats1" title="s-no : A1">A-1
+                        <div class="inside-div"></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="seats" id="seats1" title="s-no : A2" onclick="selectedseats(this)">A-2
+                        <div class="inside-div"></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="seats"id="seats1" title="s-no : A3">A-3
+                        <div class="inside-div"></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="seats"id="seats1" title="s-no : A4">A-4
+                        <div class="inside-div"></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="seats"id="seats1"title="s-no : A5">A-5
+                        <div class="inside-div"></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="seats" id="seats1" title="s-no : A6">A-6
+                        <div class="inside-div"></div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+               
+            </tr>
+            <tr>
+                <td>
+                    <div class="seats" id="seats1" title="s-no : B1">B-1
+                        <div class="inside-div"></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="seats" id="seats1" title="s-no : B2">B-2
+                        <div class="inside-div"></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="seats" id="seats1" title="s-no : B3">B-3
+                        <div class="inside-div"></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="seats" id="seats1" title="s-no : B4">B-4
+                        <div class="inside-div"></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="seats" id="seats1" title="s-no : B5">B-5
+                        <div class="inside-div"></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="seats" id="seats1" title="s-no : B6">B-6
+                        <div class="inside-div"></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="seats" id="seats1" title="s-no : B7(sleeper)">B-7
+                        <div class="inside-div"></div>
+                    </div>
+                </td>
+            </tr>
+                <td style="visibility:hidden;">j</td>
+            </tr>
+            <tr>
+                <td style="color: rgb(121, 121, 84); font-weight: bolder;">up/deck</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <div class="seats-back" title="s-no: c-1">C-1
+                        <div class="inside-div-back"></div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="visibility: hidden;">k</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="seats" id="seats1" title="s-no : c-2">C-2
+                        <div class="inside-div"></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="seats "id="seats1" title="s-no : c-3">C-3
+                        <div class="inside-div" ></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="seats"id="seats1" title="s-no : c-4" style="border: 1px solid red;">C-4
+                        <div class="inside-div"></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="seats" id="seats1" title="s-no : c-5">C-5
+                        <div class="inside-div"></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="seats" id="seats1" title="s-no : c-6">C-6
+                        <div class="inside-div"></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="seats" id="seats1" title="s-no : c-7">C-7
+                        <div class="inside-div"></div>
+                    </div>
+                </td>
+                <td>
+                    <div class="seats" id="seats1" title="s-no : c-8">C-8
+                        <div class="inside-div"></div>
+                    </div>
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <div class="seats" id="seats1" title="s-no : D-1">D-1
+                        <div class="inside-div"></div>
+                    </div>
+                </td>
+              
+                    <td>
+                        <div class="seats" id="seats1"title="s-no : D-2">D-2
+                            <div class="inside-div"></div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="seats" id="seats1" title="s-no : D-3">D-3
+                            <div class="inside-div"></div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="seats" id="seats1" title="s-no : D-4">D-4
+                            <div class="inside-div"></div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="seats" id="seats1" title="s-no : D-5">D-5
+                            <div class="inside-div"></div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="seats" id="seats1" title="s-no : D-6">D-6
+                            <div class="inside-div"></div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="seats" id="seats1" title="s-no : D-7">D-7
+                            <div class="inside-div"></div>
+                        </div>
+                    </td>
+            </tr>
+        </table>
+    </div>
+
+
+   
+    <!---------------------------- -------------- lowe deck seats ---------------------------------------->
+    <form id="seatlayoutform" >
+        <input type="radio" id="seats" name="seatlayout" value="seats">
+        <label>seats</label>
+        <input type="radio" id="sleeper" name="seatlayout" value="sleeper">
+        <label>sleeper</label>
+    </form>
+    <div class="seat-chair" id="seatchair">
+   
+    <table>
+        <tr>
+            <td><img src="../icons/steering-wheel.svg"></td>
+            <td></td> 
+            <td> <div class="outdiv1" id="seats1">
+            <div class="indiv" title="s-no : s-1"> S1 </div>
+            </div>
+            </td>
+            <td></td>
+        
+            </div></td> 
+            <td> <div class="outdiv1" id="seats1">
+                <div class="indiv"  title="s-no : s-2">S2</div>
+                </div>
+            </td> 
+            <td><div class="outdiv1" id="seats1">
+                    <div class="indiv" title="s-no : s-3">S3</div>
+                </div>
+            </td> 
+            <td> <div class="outdiv1" id="seats1">
+                    <div class="indiv" title="s-no : s-4">S4</div>
+                </div>
+            </td> 
+            <td> <div class="outdiv1" id="seats1">
+                    <div class="indiv" id="seats1" title="s-no : s-5">S5</div>
+            </div>
+            </td> 
+            <td> <div class="outdiv1"id="seats1">
+                    <div class="indiv" title="s-no : s-6">S6</div>
+                </div>
+            </td> 
+            <td></td>
+            <td><div class="outdiv1" id="seats1">
+                    <div class="indiv" title="s-no : s-7">S7</div>
+                </div>
+            </td> 
+            <td><div class="outdiv1" id="seats1">
+                <div class="indiv"  title="s-no : s-8">S8</div>
+                </div>
+            </td> 
+            <td><div class="outdiv1" id="seats1">
+                <div class="indiv"  title="s-no : s-9">S9</div>
+                </div>
+            </td> 
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><div class="outdiv1" id="seats1">
+                <div class="indiv"  title="s-no : u-1">U1</div>
+                </div></td>
+            <td><div class="outdiv1" id="seats1">
+                <div class="indiv"  title="s-no : u-2">U2</div>
+                </div></td>
+            <td><div class="outdiv1" id="seats1">
+                <div class="indiv" title="s-no : u-3">U3</div>
+                </div></td>
+            <td><div class="outdiv1" id="seats1">
+                <div class="indiv" title="s-no : u-4">U4</div>
+                </div></td>
+            <td><div class="outdiv1" id="seats1">
+                <div class="indiv" title="s-no : u-5">U5</div>
+                </div></td>
+            <td><div class="outdiv1" id="seats1">
+                <div class="indiv"  title="s-no : u-6">U6</div>
+                </div></td>
+            <td><div class="outdiv1" id="seats1" title="">
+                <div class="indiv" title="s-no : u7">U7</div>
+                </div></td>
+            <td><div class="outdiv1" id="seats1">
+                <div class="indiv" title="s-no : u-8">U8</div>
+                </div></td>
+            
+            <td><div class="outdiv1" id="seats1">
+                <div class="indiv" title="s-no : u-9">U9</div>
+                </div>
+            </td> 
+        </tr>
+        <tr>
+            <td style="color: rgb(121, 121, 84); font-weight: bolder;">Lower deck</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><div class="outdiv1" id="seats1">
+                <div class="indiv" title="s-no : U-10">U10</div>
+                </div>
+            </td> 
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td><div class="outdiv1" id="seats1">
+                <div class="indiv" title="s-no : Z-1">Z1</div>
+                </div>
+            </td>
+            <td><div class="outdiv1" id="seats1">
+                <div class="indiv"title="s-no : Z-2">Z2</div>
+                </div>
+            </td>
+            <td></td>
+            <td><div class="outdiv1" id="seats1">
+                <div class="indiv"title="s-no : Z-3">Z3</div>
+                </div>
+            </td>
+            <td><div class="outdiv1" id="seats1">
+                <div class="indiv" title="s-no : Z-4">Z4</div>
+                </div>
+            </td>
+            <td><div class="outdiv1" id="seats1">
+                <div class="indiv"title="s-no : Z-6">Z6</div>
+                </div>
+            </td>
+            <td><div class="outdiv1" id="seats1">
+                <div class="indiv"title="s-no : Z-7">Z7</div>
+                </div>
+            </td>
+            <td><div class="outdiv1" id="seats1">
+                <div class="indiv"title="s-no : Z-8">Z8</div>
+                </div>
+            </td>
+            <td><div class="outdiv1" id="seats1">
+                <div class="indiv"title="s-no : Z-9">Z9</div>
+                </div>
+            </td>
+            <td></td>
+            <td><div class="outdiv1" id="seats1">
+                <div class="indiv"title="s-no : Z-10">Z10</div>
+                </div>
+            </td>
+            <td><div class="outdiv1" id="seats1">
+                <div class="indiv"title="s-no : Z-11">Z11</div>
+                </div>
+            </td>
+           
+        </tr>
+    </table>
+</div>
+<!-- <div id="ticket">
+your ticket
+<p id="details"></p> -->
+</div>
+<button id="confirm-Booking">confirm-Booking</button>
+
+</div>
+     <script src="./select-seats.js"> 
+        // <!-- <script>
+      
+//     const submit =  document.getElementById("submit");
+//     submit.addEventListener("click",()=>{
+//          checkGender()
+
+//     })
+
+// var Gender = document.getElementById("gender").value
+
+// function checkGender() {
+//     let Gender = document.getElementById("gender").value;
+
+//     if (Gender.toLowerCase() === "female") {
+//         let seats = document.querySelectorAll("#seats1");
+
+//         seats.forEach((seat, index = 0) => {
+//             seat.addEventListener("click", () => {
+//                 seat.style.backgroundColor = "lightgrey";
+//                 seat.style.border = "1px solid red";
+//                 seat.style.color = "green";
+//                 seat.title = "Booked by female; not allowed beside men's seats";
+//             });
+//         });
+//     }
+//     else{
+//         let seats = document.querySelectorAll("#seats1");
+//         seats.forEach((seat)=>{
+//             seat.addEventListener("click",()=>{
+//                 seat.style.backgroundColor = "lightgrey";
+//                 seat.style.border = "1px solid black";
+//                 seat.style.color = "black";
+//                 seat.title = " Booked By Male passenger"
+//             })
+//         })
+
+//     }
+   
+//     }
+ 
+//     const seats = document.querySelectorAll('.seats, .seats-back, .outdiv1');
+// let selectedSeatsCount = 0 ;
+// console.log(typeof selectedSeatsCount)
+// console.log(selectedSeatsCount)
+// console.log(selectedSeatsCount)
+
+
+// seats.forEach(seat => {
+//     seat.addEventListener('click', () => {
+//         if (seat.classList.contains('selected')) {
+//             seat.addEventListener('dbclick',()=>{
+//                 seat.classList.remove('selected');
+//                 seat.style.border="lightblue"
+//                 seat.style.backgroundColor="lighgreen"
+//                 seat.style.color="green"
+//                 selectedSeatsCount--;
+//             })
+           
+//         } else {
+//             seat.classList.add('selected');
+//             selectedSeatsCount++;
+//             if(selectedSeatsCount > 0){
+//            let confirmBooking = document.getElementById("confirm-Booking")
+//            confirmBooking.style.display = "block";
+//            confirmBooking.style.backgroundColo="lightred";
+//            confirmBooking.style.color="white";
+
+//             }
+//         }
+       
+//         document.getElementById('seatCount').textContent = `Selected Seats: ${selectedSeatsCount}`;
+//     });
+// });
+// if(selectedSeatsCount > 0){
+//     console.log(selectedSeatsCount  == 0 )
+//  let confirmBooking = document.getElementById("confirm-Booking")
+//  confirmBooking.style.display = "block";
+//  confirmBooking.style.backgroundColor="lightred";
+//  confirmBooking.style.color="black";
+
+// }
+//     function AddeSeatSelection() {
+//         const seats = document.querySelectorAll('.seats, .outdiv1');
+
+//         seats.forEach(seat => {
+//             seat.addEventListener('click', () => SeatSelection(seat));
+//         });
+//     }
+//     document.addEventListener('DOMContentLoaded', initializeSeatSelection); -->
+
+
+
+    </script>
+
+   
+
+</body>
+</html>

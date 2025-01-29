@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RedBus Payment UI</title>
+    <link rel="stylesheet" href="../payment/payment.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    <!-- Include SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/jspdf.umd.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+
+</head>
+<body>
+    <div class="header" style="background-image: linear-gradient(rgb(138, 92, 92), green,rgb(191, 175, 175));
+">
+        <span style="color:white;" >Payment </span>
+        <strong class="from"></strong> <span style="color: red;"></span>
+        <strong class="end"></strong>
+    </div>
+
+    <div class="container">
+        <div class="offer-section">
+            <input type="text" placeholder="Enter Offer Code" />
+            <button>Apply</button>
+        </div>
+
+        <div class="info-bar">
+            <div>
+                <img src="https://s3.rdbuz.com/Images/webplatform/Common/Payment/safe-payments.svg" alt="CC" />
+
+                Safe and secure online payments</div>
+            <div>
+                <img src="https://s3.rdbuz.com/Images/webplatform/Common/Payment/transactions.svg" />
+                
+                60+ million transactions</div>
+            <div>
+                <img src="https://s3.rdbuz.com/Images/webplatform/Common/Payment/trust.svg" alt="Reliable" />
+
+                10+ years of Trust</div>
+        </div>
+
+        <div class="payment-section">
+            <h3>Choose Payment Method</h3>
+            <div class="payment-method">
+                <div class="method">
+                    <input type="radio" name="payment" id="qr">
+                    <label for="qr">Pay through QR Code (GPay, PhonePe, Amazon Pay)</label>
+                    <div class="icon-list">
+                        <img src="https://st.redbus.in/paas/images/v2/GPayNewLogo.png" alt="GPay">
+                        <img src="https://st.redbus.in/paas/images/web/v2/upi/phonepe.svg" alt="PhonePe">
+                        <img src="https://st.redbus.in/paas/images/mobile/v2/amazonpay_new.png" alt="Amazon Pay">
+                    </div>
+                </div>
+                <div class="method">
+                    <input type="radio" name="payment" id="upi">
+                    <label for="upi">Pay through UPI ID</label>
+                    <div class="icon-list">
+                        <img src="https://st.redbus.in/paas/images/v2/GPayNewLogo.png" alt="GPay">
+                        <img src="https://st.redbus.in/paas/images/web/v2/upi/phonepe.svg" alt="PhonePe">
+                        <img src="https://st.redbus.in/paas/images/mobile/v2/amazonpay_new.png" alt="Amazon Pay">
+                    </div>
+                </div>
+                <div>
+                    <input  id = "paymentfield"type="text" placeholder="Enter UPI ID" style="width: calc(100% - 120px); margin-right: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                    <button  id ="paynow" style="padding: 10px; background-color: #ff4d4d; color: white; border: none; border-radius: 5px; cursor: pointer;">Pay Now</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="details">
+            <div class="info">
+                <strong style="color: #ff4d4d;">VRL Travels</strong><br>
+               <span style="color: #41812e;"> Volvo Multi-Axle I-Shift A/C Sleeper</span>
+            </div>
+            <div class="info">
+                <strong id="Date"></strong><br/>
+                <strong>Seats:</strong> 20
+            </div>
+            <div class="info">
+                <strong id="from" style="color: rgba(69, 208, 67, 0.477); font-weight: bold;"></strong><br>
+                <strong  id ="end" style="color: #ff4d4d; font-weight: bold;"></strong> 
+            </div>
+        </div>
+
+        <div class="fare-breakup">
+            <h3>Fare Breakup</h3>
+            <div>
+                <span>Onward Fare</span>
+                <span>INR 312</span>
+            </div>
+            <div>
+                <span>Discount</span>
+                <span>INR 0</span>
+            </div>
+            <div>
+                <span>Total Payable</span>
+                <span>INR 312</span>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="info">
+        <strong id="Date"></strong>
+        <strong>Seats:</strong> 20
+    </div> -->
+    
+    <script>
+       let dateElement = document.getElementById("Date");
+let from = document.getElementById("from");
+let end = document.getElementById("end");
+let swal = document.getElementById("paynow");
+let paymentField = document.getElementById("paymentfield");
+
+let retrived = JSON.parse(localStorage.getItem("searchData")) || {};
+
+
+if (retrived.date && retrived.from && retrived.to) {
+  dateElement.innerHTML = `Date: ${retrived.date}`;
+  from.innerHTML = `<span style="color:black">Boarding Point</span>: ${retrived.from}`;
+  end.innerHTML = `Dropping Point: ${retrived.to}`;
+} else {
+  console.error("No valid data found in localStorage for 'searchData'.");
+}
+
+
+swal.addEventListener("click", function () {
+  if (paymentField.value.trim() === "") {
+    Swal.fire({
+      title: "Required to fill",
+      text: "Field is empty.",
+      icon: "warning",
+      confirmButtonText: "OK",
+    });
+  } else {
+    Swal.fire({
+      title: "Payment Done",
+      text: "You can download the ticket.",
+      icon: "success",
+      confirmButtonText: "OK",
+    }).then(() => {
+    
+      const ticketData = {
+        numberOfTickets: 2,
+        from: retrived.from,
+        to: retrived.to,
+        date: retrived.date,
+      };
+      console.log(ticketData)
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      
+      if (window.jspdf && window.jspdf.jsPDF) {
+  const { jsPDF } = window.jspdf;
+
+
+  const doc = new jsPDF();
+
+ 
+  doc.setFillColor(240, 248, 255); 
+  doc.rect(10, 10, 190, 120, "F");
+
+  doc.setFontSize(16);
+  doc.setFont("helvetica", "bold");
+  doc.setTextColor(0, 51, 102); 
+
+  doc.text(`From: ${retrived.from}`, 20, 20);
+
+  doc.text(`To: ${retrived.to}`, 140, 20); 
+
+  doc.setDrawColor(0, 51, 102); 
+  doc.setLineWidth(1);
+  doc.line(15, 25, 195, 25);
+
+  doc.setFontSize(18);
+  doc.setFont("helvetica", "bold");
+  doc.text("Travel Ticket", 105, 35, { align: "center" });
+
+  doc.setFillColor(255, 228, 196); 
+  doc.rect(15, 40, 180, 80, "F");
+
+  
+  doc.setFontSize(12);
+  doc.setFont("helvetica", "normal");
+  doc.setTextColor(0); 
+
+  doc.text("Number of Tickets:", 20, 50);
+  doc.setTextColor(34, 139, 34); 
+  doc.text("2", 80, 50);
+
+  doc.setTextColor(0); 
+  doc.text("Date:", 20, 60);
+  doc.setTextColor(34, 139, 34); 
+  doc.text(retrived.date, 80, 60);
+
+  doc.setFontSize(10);
+  doc.setTextColor(128, 0, 128); 
+  doc.text("Thank you for choosing us!", 105, 110, { align: "center" });
+
+  doc.save("ticket.pdf");
+} else {
+  console.error("jsPDF is not loaded. Please ensure the library is included.");
+}
+      doc.save("ticket.pdf");
+    });
+  }
+});
+
+    </script>
+    
+</body>
+</html>
+

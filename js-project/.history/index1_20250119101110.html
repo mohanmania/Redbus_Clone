@@ -1,0 +1,259 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travel Ticket Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      margin: 20px;
+    }
+    .form-container, .ticket {
+      max-width: 500px;
+      margin: auto;
+      padding: 20px;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .form-container h2, .ticket h2 {
+      text-align: center;
+      color: #333;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .ticket {
+      display: none;
+      border-top: 3px solid #f40909;
+    }
+    .ticket h2 {
+      color: #ff0000;
+    }
+    .ticket p {
+      margin: 5px 0;
+      line-height: 1.5;
+    }
+    .ticket-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+    }
+    .ticket-header img {
+      width: 80px;
+    }
+    .ticket-footer {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #555;
+      text-align: center;
+    }
+    .download-button {
+      display: block;
+      margin: 10px auto;
+      padding: 10px 20px;
+      background-color: #ff0000;
+      color: white;
+      text-align: center;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .download-button:hover {
+      background-color: #009eb3;
+    }
+  </style>
+</head>
+<body>
+
+<div class="form-container">
+  <h2>Fill Travel Ticket Details</h2>
+  <form id="ticketForm">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" id="name" required>
+    </div>
+    <div class="form-group">
+      <label for="age">Age:</label>
+      <input type="number" id="age" required>
+    </div>
+    <div class="form-group">
+      <label for="persons">Number of Persons:</label>
+      <input type="number" id="persons" required>
+    </div>
+    <div class="form-group">
+      <label for="ticketType">Ticket Type:</label>
+      <select id="ticketType" required>
+        <option value="Economy">Economy</option>
+        <option value="Business">Business</option>
+        <option value="First Class">First Class</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="departure">Departure:</label>
+      <input type="text" id="departure" required>
+    </div>
+    <div class="form-group">
+      <label for="destination">Destination:</label>
+      <input type="text" id="destination" required>
+    </div>
+    <button type="button" onclick="generateTicket()">Generate Ticket</button>
+  </form>
+</div>
+
+<div class="ticket" id="ticketContent">
+  <div class="ticket-header">
+    <img src="https://via.placeholder.com/80" alt="Company Logo">
+    <h2>Travel Ticket</h2>
+  </div>
+  <p><strong>Name:</strong> <span id="ticketName"></span></p>
+  <p><strong>Age:</strong> <span id="ticketAge"></span></p>
+  <p><strong>Number of Persons:</strong> <span id="ticketPersons"></span></p>
+  <p><strong>Ticket Type:</strong> <span id="ticketTypeDisplay"></span></p>
+  <p><strong>Departure:</strong> <span id="ticketDeparture"></span></p>
+  <p><strong>Destination:</strong> <span id="ticketDestination"></span></p>
+  <p><strong>Ticket Number:</strong> <span id="ticketNumber"></span></p>
+  <p><strong>Total Cost:</strong> <span id="totalCost"></span></p>
+  <div class="ticket-footer">
+    Thank you for choosing us! Have a safe journey.
+  </div>
+  <button class="download-button" onclick="downloadPDF()">Download PDF</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+  let TicketCost = 750;
+
+  function generateTicket() {
+    const name = document.getElementById("name").value;
+    const age = document.getElementById("age").value;
+    const persons = document.getElementById("persons").value;
+    const ticketType = document.getElementById("ticketType").value;
+    const departure = document.getElementById("departure").value;
+    const destination = document.getElementById("destination").value;
+
+    // Randomize ticket number and cost
+    const ticketNumber = Math.floor(Math.random() * 1000000) + 1;
+    // TicketCost = Math.floor(Math.random() * 500 + 100); 
+    const totalCost = TicketCost * persons;
+
+
+    document.getElementById("ticketName").textContent = name;
+    document.getElementById("ticketAge").textContent = age;
+    document.getElementById("ticketPersons").textContent = persons;
+    document.getElementById("ticketTypeDisplay").textContent = ticketType;
+    document.getElementById("ticketDeparture").textContent = departure;
+    document.getElementById("ticketDestination").textContent = destination;
+    document.getElementById("ticketNumber").textContent = ticketNumber;
+    document.getElementById("totalCost").textContent = `₹${totalCost}`;
+
+    
+    document.getElementById("ticketContent").style.display = "block";
+  }
+
+  function downloadPDF() {
+    const ticketContent = document.getElementById("ticketContent");
+    html2canvas(ticketContent).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p", "mm", "a4");
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+      pdf.save("TravelTicket.pdf");
+    });
+  }
+</script>
+
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<!-- <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radio Button Selection</title>
+</head>
+<body>
+    <form id="seatForm">
+        <input type="radio" id="seats" name="seatlayout" value="seats">
+        <label for="seats">Seats</label>
+        <input type="radio" id="sleeper" name="seatlayout" value="sleeper">
+        <label for="sleeper">Sleeper</label>
+    </form>
+
+    <script>
+        // Select the form and add an event listener
+        const form = document.getElementById('seatForm');
+
+        // Listen for changes in the radio buttons
+        form.addEventListener('change', (event) => {
+            if (event.target.name === 'seatlayout') {
+                console.log(event.target.value);
+            }
+        });
+    </script>
+</body>
+</html>
+ -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input type="text" placeholder="nter your  meal"/>
+  <button onsubmit=fetchRecipe()></button>
+  <script>
+
+    const serach = document.getElementById
+    
+const fetchRecipe = async () => {
+  const url = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random?tags=vegetarian%2Cdessert&number=1';
+  const options = {
+      method: 'GET',
+      headers: {
+          'x-rapidapi-key': 'a061682185msh0d6732a3643ea18p1d4a00jsn095ae710a653',
+          'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
+      }
+  };
+
+  try {
+      const response = await fetch(url, options);
+      const result = await response.json(); // Parse as JSON instead of text
+      console.log(result);
+  } catch (error) {
+      console.error("Error fetching the recipe:", error);
+  }
+};
+
+// Call the function
+fetchRecipe();
+
+  </script>
+</body>
+</html>
